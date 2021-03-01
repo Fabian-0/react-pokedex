@@ -1,38 +1,52 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+/* .App {
   text-align: center;
+} */
+
+body {
+  padding: 10px;
+  background-color: #F6F8FC;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  width: 90%;
 }
 
-.App-link {
-  color: #61dafb;
+.Pokedex__grid {
+  max-width: 1600px;
+  margin: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.col-lg-1 {
+  padding: 10px;
+  width: 25%;
+}
+
+.Pokedex__card {
+  
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 5px;
+}
+
+.Pokedex__cont-types {
+  width: 100%;
+  /* display: inline-block; */
+}
+
+.Pokedex__types {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #000;
+  margin: 5px;
+
 }
