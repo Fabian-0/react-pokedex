@@ -1,62 +1,83 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { typesContext } from "../Contexts/TypesContext";
 import { getTypes } from "../services/CallToApi";
-import useTestContext from "./useTestContext";
 
 function SearchBox() {
-
-  const { updateSearch } = useTestContext();
-  
-  // const handlerSearchState = 
-
-  const [toSearch, setToSearch] = useState('');
-
-  const [pokemonTypes,setpokemonTypes] = useState([]);
-
+  const [toSearch, setToSearch] = useState("");
+  const { checkboxTypes, saveTypes } = useContext(typesContext);
   const { register, handleSubmit } = useForm();
+  let history = useHistory();
 
-  useEffect(()=>{
-    getTypes()
-    .then(res => setpokemonTypes(res));
-  },[]);
+  useEffect(() => {
+    console.log("render");
+    if (!checkboxTypes.length) {
+      getTypes().then((res) => saveTypes(res));
+      console.log(checkboxTypes);
+    }
+  });
 
   const handlerSearch = (data) => {
-    if(data) {
-      if(Number(data)) return updateSearch({typeOfSearch: 'searchForIdOrName', dataToSearch: data});
-      updateSearch({typeOfSearch:'searchForIdOrName', dataToSearch: data});
+    if (data) {
+      history.push(`/pokedex/search-pokemon/pokemon?search=${data}`);
     }
     return;
-  }
+  };
 
   const onSubmit = (data) => {
-    const typeSearchPokemones = pokemonTypes.filter(element => data[element.name]);
-    
-    if(typeSearchPokemones.length) {
-      const urlToSearch = typeSearchPokemones.map((value) => value.url);
-      updateSearch({typeOfSearch: 'searchForType', dataToSearch: urlToSearch});
+    const typeSearchPokemones = checkboxTypes.filter(
+      (element) => data[element.name]
+    );
+    if (typeSearchPokemones.length) {
+      let urlTypes = "/pokedex/search-types/types?";
+
+      typeSearchPokemones.forEach((value, index) => {
+        if (index === typeSearchPokemones.length - 1) {
+          urlTypes += "type=" + value.name;
+          return;
+        }
+        return (urlTypes += "type=" + value.name + "&");
+      });
+      history.push(urlTypes);
     }
-  }
+  };
 
   return (
-    // <TestContext.Consumer>
-      <div className="Pokedex__searchBox">
-        <input type="text" name="pokemon" onChange={ (e) => setToSearch(e.target.value) } />
-        <button type="button" onClick={() => handlerSearch(toSearch)} >Search</button>
-        <div className="Pokedex__types">
-          <form className="Pokedex__form-checkbox" onSubmit={handleSubmit(onSubmit)}>
-            {pokemonTypes.length && pokemonTypes.map((value) => {
+    <div className="Pokedex__searchBox">
+      <input
+        type="text"
+        name="pokemon"
+        onChange={(e) => setToSearch(e.target.value)}
+      />
+      <button type="button" onClick={() => handlerSearch(toSearch)}>
+        Search
+      </button>
+
+      <div className="Pokedex__types">
+        <form
+          className="Pokedex__form-checkbox"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {checkboxTypes.length &&
+            checkboxTypes.map((value) => {
               return (
                 <span key={value.url}>
                   <label htmlFor={value.name}>{value.name}</label>
-                  <input type="checkbox" name={value.name} value={value.name} ref={register} />
+                  <input
+                    type="checkbox"
+                    name={value.name}
+                    value={value.name}
+                    ref={register}
+                  />
                 </span>
               );
             })}
-            <input type="submit" value="Search"/>
-          </form>
-        </div>
+
+          <input type="submit" value="Search" />
+        </form>
       </div>
-    // </TestContext.Consumer>
+    </div>
   );
 }
 

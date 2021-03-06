@@ -27,9 +27,9 @@ export const getPokemonForIdOrName = async (value) => {
 
 export const getPokemonForType = async (link) => {
   try {
-    const responseApi = await fetch(link);
+    const responseApi = await fetch(URLBASE+'type/'+link);
     const dataResponse = await responseApi.json();
-    return dataResponse.pokemon;
+    return dataResponse.pokemon.slice(0,5);
   } catch (error) {
     console.log(error);
   }
