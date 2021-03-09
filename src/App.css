@@ -5,48 +5,6 @@
   -webkit-box-sizing: border-box;
 }
 
-/* .App {
-  text-align: center;
-} */
-
 body {
-  padding: 10px;
-  background-color: #F6F8FC;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-}
-
-.Pokedex__grid {
-  max-width: 1600px;
-  margin: auto;
-}
-
-.col-lg-1 {
-  padding: 10px;
-  width: 25%;
-}
-
-.Pokedex__card {
-  
-  background-color: #fff;
-  background-clip: content-box;
-  border-radius: 5px;
-}
-
-.Pokedex__cont-types {
-  width: 100%;
-  /* display: inline-block; */
-}
-
-.Pokedex__types {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #000;
-  margin: 5px;
-
+  background-color: #f6f8fc;
 }

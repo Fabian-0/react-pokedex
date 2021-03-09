@@ -1,0 +1,135 @@
+.Pokedex__searchBox {
+  padding: 40px;
+  position: relative;
+}
+
+.Pokedex__search-name-cont {
+  position: relative;
+  width: 50%;
+  max-width: 500px;
+  display: inline-block;
+}
+
+.Pokedex__input-nameId {
+  padding: 10px 8px;
+  width: 100%;
+  font-size: 1.15rem;
+  border-radius: 5px;
+  border-color: transparent;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.171);
+}
+
+.Pokedex__button-name {
+  position: absolute;
+  height: calc(100% - 10px);
+  width: 40px;
+  top: 5px;
+  right: -15px;
+  background-image: url("../img/pokeball.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80% 80%;
+  border: none;
+  border-left: 1px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.Pokedex__types {
+  position: relative;
+  display: inline-block;
+  width: 45%;
+  margin-left: 5%;
+}
+
+.Pokedex__search-types {
+  padding: 10px;
+  width: 35%;
+  min-width: 220px;
+  text-align: center;
+  font-weight: 700;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.171);
+  margin: 0 auto;
+}
+
+.Pokedex__form-checkbox:hover,
+.Pokedex__search-types:hover + .Pokedex__form-checkbox {
+  display: flex;
+}
+
+.Pokedex__form-checkbox {
+  width: 100%;
+  display: none;
+  position: absolute;
+  top: 0px;
+  background-color: #fff;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.171);
+}
+
+.Pokedex__checkbox-label {
+  width: 22%;
+  padding: 5px;
+  text-align: center;
+  font-weight: 700;
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
+.Pokedex__button-types {
+  display: block;
+  width: 50%;
+  margin: 10px auto;
+  padding: 8px 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.Pokedex__button-types:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+@media (max-width: 1200px) {
+  .Pokedex__button-types {
+    min-width: 100px;
+  }
+  .Pokedex__checkbox-label {
+    width: 30%;
+  }
+}
+
+@media (max-width: 910px) {
+  .Pokedex__checkbox-label {
+    width: 40%;
+  }
+}
+
+@media (max-width: 640px) {
+  .Pokedex__searchBox {
+    padding: 20px 10px;
+  }
+  .Pokedex__search-name-cont {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .Pokedex__types {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .Pokedex__checkbox-label {
+    width: 90%;
+  }
+}

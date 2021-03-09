@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ProvideTypes } from "./Contexts/TypesContext";
 import { AuthProvider } from "./Contexts/AuthContext";
 import PokemonInfo from "./components/PokemonInfo";
@@ -10,30 +10,34 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SearchBox from "./components/SearchBox";
 import RandomButton from "./components/RandomButton";
 import "./App.css";
+import Encounters from "./components/Encounters";
 
 function App() {
   return (
     <div className="App">
       <AuthProvider>
         <ProvideTypes>
-          <BrowserRouter>
+          <Router>
             <Switch>
+              <ProtectedRoute path="/pokedex/pokemon/:id/encounters">
+                <Encounters />
+              </ProtectedRoute>
               <ProtectedRoute path="/pokedex/pokemon/:id">
                 <PokemonInfo />
               </ProtectedRoute>
-              <ProtectedRoute path="/pokedex/search-pokemon/:pokemon">
+              <Route path="/pokedex/search-pokemon/:pokemon">
                 <NameOrIdContainer />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/pokedex/search-types/:types">
+              </Route>
+              <Route exact path="/pokedex/search-types/:types">
                 <TypesContainer />
-              </ProtectedRoute>
+              </Route>
               <Route path="/login" component={Login} />
-              <ProtectedRoute to="/">
+              <ProtectedRoute path="/">
                 <SearchBox />
                 <RandomButton />
               </ProtectedRoute>
             </Switch>
-          </BrowserRouter>
+          </Router>
         </ProvideTypes>
       </AuthProvider>
     </div>

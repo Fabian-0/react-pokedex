@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { typesContext } from "../Contexts/TypesContext";
 import { getTypes } from "../services/CallToApi";
+import "./Assets/styles/SearchBox.css";
 
 function SearchBox() {
   const [toSearch, setToSearch] = useState("");
@@ -11,16 +12,16 @@ function SearchBox() {
   let history = useHistory();
 
   useEffect(() => {
-    console.log("render");
     if (!checkboxTypes.length) {
       getTypes().then((res) => saveTypes(res));
-      console.log(checkboxTypes);
     }
   });
 
   const handlerSearch = (data) => {
     if (data) {
-      history.push(`/pokedex/search-pokemon/pokemon?search=${data}`);
+      history.push(
+        `/pokedex/search-pokemon/pokemon?search=${data.toLowerCase().trim()}`
+      );
     }
     return;
   };
@@ -45,16 +46,22 @@ function SearchBox() {
 
   return (
     <div className="Pokedex__searchBox">
-      <input
-        type="text"
-        name="pokemon"
-        onChange={(e) => setToSearch(e.target.value)}
-      />
-      <button type="button" onClick={() => handlerSearch(toSearch)}>
-        Search
-      </button>
-
+      <div className="Pokedex__search-name-cont">
+        <input
+          type="text"
+          name="pokemon"
+          onChange={(e) => setToSearch(e.target.value)}
+          placeholder="Search for Name or Id!"
+          className="Pokedex__input Pokedex__input-nameId"
+        />
+        <button
+          type="button"
+          onClick={() => handlerSearch(toSearch)}
+          className="Pokedex__button-search Pokedex__button-name"
+        ></button>
+      </div>
       <div className="Pokedex__types">
+        <p className="Pokedex__search-types">Search for types</p>
         <form
           className="Pokedex__form-checkbox"
           onSubmit={handleSubmit(onSubmit)}
@@ -62,19 +69,25 @@ function SearchBox() {
           {checkboxTypes.length &&
             checkboxTypes.map((value) => {
               return (
-                <span key={value.url}>
-                  <label htmlFor={value.name}>{value.name}</label>
-                  <input
-                    type="checkbox"
-                    name={value.name}
-                    value={value.name}
-                    ref={register}
-                  />
+                <span key={value.url} className="Pokedex__checkbox-label">
+                  <label>
+                    {value.name.toUpperCase()}{" "}
+                    <input
+                      type="checkbox"
+                      name={value.name}
+                      value={value.name}
+                      ref={register}
+                    />
+                  </label>
                 </span>
               );
             })}
 
-          <input type="submit" value="Search" />
+          <input
+            className="Pokedex__button-types"
+            type="submit"
+            value="Search"
+          />
         </form>
       </div>
     </div>

@@ -1,0 +1,33 @@
+.Pokedex__card {
+  background-color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.37);
+  padding: 5px;
+  padding-bottom: 10px;
+}
+
+.Pokedex__card > img {
+  width: 50%;
+  max-width: 150px;
+}
+
+.Pokedex__card > a {
+  display: block;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.Pokedex__cont-types {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  margin: auto;
+  background-color: #f6f8fc;
+}
+
+@media (max-width: 575px) {
+  .Pokedex__card {
+    margin: 20px;
+  }
+}

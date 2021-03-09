@@ -1,43 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import PokemonCard from "./PokemonCard";
 import { getPokemonForIdOrName } from "../services/CallToApi";
-import { useLocation } from 'react-router-dom';
-import GridContainer from './GridContainer';
+import { Link, useLocation } from "react-router-dom";
+import GridContainer from "./GridContainer";
+import "./Assets/styles/PokemonCard.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 function NameOrIdContainer() {
-
   const [pokemonData, setPokemonData] = useState([]);
-  let queryNameOrId = useQuery().get('search');
+  let queryNameOrId = useQuery().get("search");
   let navigationData = useLocation();
 
-  useEffect(()=>{
-    console.log(navigationData);
-    if(navigationData.state?.data &&  !pokemonData.length) {
-      return setPokemonData([navigationData.state.data]);
+  useEffect(() => {
+    if (navigationData.state?.dataPokemon && !pokemonData.length) {
+      return setPokemonData([navigationData.state.dataPokemon]);
     }
-    if(!pokemonData.length && !navigationData.state?.data) {
-      getPokemonForIdOrName(queryNameOrId)
-      .then(res => setPokemonData([res]));
+    if (!pokemonData.length && !navigationData.state?.dataPokemon) {
+      getPokemonForIdOrName(queryNameOrId).then((res) => setPokemonData([res]));
       return;
     }
-
-  },[navigationData, pokemonData.length, queryNameOrId]);
+  }, [navigationData, pokemonData.length, queryNameOrId]);
 
   return (
     <GridContainer>
-      {pokemonData.length !== 0 && pokemonData.map((element) => {
-      console.log(pokemonData);
-        if(element?.name){
-          return <PokemonCard key={element.id}
-                  pokemon={element} search={(navigationData.state?.search) ? navigationData.state?.search : queryNameOrId}
-                />
-        }
-        return null;
-      })}
+      {pokemonData.length !== 0 &&
+        pokemonData.map((element) => {
+          if (element?.name) {
+            return (
+              <PokemonCard
+                key={element.id}
+                pokemon={element}
+                search={
+                  navigationData.state?.search
+                    ? navigationData.state?.search
+                    : queryNameOrId
+                }
+              />
+            );
+          }
+          return null;
+        })}
+      {pokemonData[0] === undefined && (
+        <>
+          <p style={{ width: "100%", textAlign: "center" }}>Not Found</p>
+          <Link
+            to="/"
+            style={{
+              width: "100%",
+              textAlign: "center",
+              textDecoration: "none",
+            }}
+          >
+            Home
+          </Link>
+        </>
+      )}
     </GridContainer>
   );
 }
